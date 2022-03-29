@@ -88,7 +88,17 @@ good_luck <- function(index_1 = NULL, index_2 = NULL) {
 
   print(paste0("报数: ", index_1 |> as.character(), "|", index_2 |> as.character(), ""))
   print(paste0("卦象: ", paste(bagua$name[gua], collapse = ",")))
-  get_summary(results)
+  message = get_summary(results)
+
+  print(message)
+
+  list(
+    "index_i" = c(index_1 |> as.character(), index_2 |> as.character()),
+    "bagua" = bagua$name[gua],
+    "wuxing_bagua" = wuxing_gua,
+    "means" = results,
+    "message" = message
+  )
 }
 
 
