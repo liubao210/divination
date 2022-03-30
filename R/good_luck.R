@@ -77,11 +77,11 @@ good_luck <- function(index_1 = NULL, index_2 = NULL) {
   gua = c(i_t, i_y, i_h1, i_h2, i_b)
   # 所有卦对应的五行
   wuxing_gua = gua %>%
-    map(\(.){bagua$wuxing_name[bagua$index == .]}) %>%
+    map(function(.){bagua$wuxing_name[bagua$index == .]}) %>%
     unlist()
   # 体与用互互变的关系
   wuxing_gua_tmp = wuxing_gua %>%
-    map(\(.){wuxing[[wuxing_gua[1]]][wuxing$wuxing == .]}) %>%
+    map(function(.){wuxing[[wuxing_gua[1]]][wuxing$wuxing == .]}) %>%
     unlist()
 
   results = orders$means[(wuxing_gua_tmp[-1])]
