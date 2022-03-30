@@ -60,40 +60,40 @@ good_luck <- function(index_1 = NULL, index_2 = NULL) {
   pic_ty = (paste0(
     bagua$pic[bagua$index == i_t],
     bagua$pic[bagua$index == i_y]
-  ) |>
-    strsplit(NULL))[[1]] |>
+  ) %>%
+    strsplit(NULL))[[1]] %>%
     rev()
-  i_h1 = bagua$index[bagua$pic == paste(pic_ty[2:4] |> rev(), collapse = "")]
-  i_h2 = bagua$index[bagua$pic == paste(pic_ty[3:5] |> rev(), collapse = "")]
+  i_h1 = bagua$index[bagua$pic == paste(pic_ty[2:4] %>% rev(), collapse = "")]
+  i_h2 = bagua$index[bagua$pic == paste(pic_ty[3:5] %>% rev(), collapse = "")]
   # 变
   pic_ty[i_change] = if_else(pic_ty[i_change] == "O", "I", "O")
   i_b = bagua$index[bagua$pic == if_else(
     i_change <= 3,
-    paste(pic_ty[1:3] |> rev(), collapse = ""),
-    paste(pic_ty[4:6] |> rev(), collapse = ""),
+    paste(pic_ty[1:3] %>% rev(), collapse = ""),
+    paste(pic_ty[4:6] %>% rev(), collapse = ""),
     )]
 
   # 所有的卦
   gua = c(i_t, i_y, i_h1, i_h2, i_b)
   # 所有卦对应的五行
-  wuxing_gua = gua |>
-    map(\(.){bagua$wuxing_name[bagua$index == .]}) |>
+  wuxing_gua = gua %>%
+    map(\(.){bagua$wuxing_name[bagua$index == .]}) %>%
     unlist()
   # 体与用互互变的关系
-  wuxing_gua_tmp = wuxing_gua |>
-    map(\(.){wuxing[[wuxing_gua[1]]][wuxing$wuxing == .]}) |>
+  wuxing_gua_tmp = wuxing_gua %>%
+    map(\(.){wuxing[[wuxing_gua[1]]][wuxing$wuxing == .]}) %>%
     unlist()
 
   results = orders$means[(wuxing_gua_tmp[-1])]
 
-  print(paste0("报数: ", index_1 |> as.character(), "|", index_2 |> as.character(), ""))
+  print(paste0("报数: ", index_1 %>% as.character(), "|", index_2 %>% as.character(), ""))
   print(paste0("卦象: ", paste(bagua$name[gua], collapse = ",")))
   message = get_summary(results)
 
   print(message)
 
   list(
-    "index_i" = c(index_1 |> as.character(), index_2 |> as.character()),
+    "index_i" = c(index_1 %>% as.character(), index_2 %>% as.character()),
     "bagua" = bagua$name[gua],
     "wuxing_bagua" = wuxing_gua,
     "means" = results,
@@ -114,16 +114,16 @@ get_summary = function(results){
     `大吉` = c("非常顺利", "有贵人出现", "能获得超出努力的回报", "获得成就水到渠成")
   )
 
-  e1 = explain[[results[1]]] |> sample(1)
+  e1 = explain[[results[1]]] %>% sample(1)
   explain[[results[1]]] = setdiff(explain[[results[1]]], e1)
 
-  e2 = explain[[results[2]]] |> sample(1)
+  e2 = explain[[results[2]]] %>% sample(1)
   explain[[results[2]]] = setdiff(explain[[results[2]]], e2)
 
-  e3 = explain[[results[3]]] |> sample(1)
+  e3 = explain[[results[3]]] %>% sample(1)
   explain[[results[3]]] = setdiff(explain[[results[3]]], e3)
 
-  e4 = explain[[results[4]]] |> sample(1)
+  e4 = explain[[results[4]]] %>% sample(1)
   explain[[results[4]]] = setdiff(explain[[results[4]]], e4)
 
   message = paste0(
