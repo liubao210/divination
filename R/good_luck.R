@@ -1,3 +1,4 @@
+options(encoding = "UTF-8")
 library(dplyr)
 library(purrr)
 
